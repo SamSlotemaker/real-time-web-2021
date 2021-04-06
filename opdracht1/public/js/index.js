@@ -7,6 +7,10 @@ let { user } = Qs.parse(location.search, {
 if (!user) {
     user = 'Guest'
 }
+
+// join chat
+socket.emit('joinChat', user)
+
 const form = document.getElementById('chat-form')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
@@ -43,8 +47,10 @@ socket.on('message', function (message) {
         element = `
         <li>
             ${userElement}
-            <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
-        <p class="meme-text text-${meme}">${memeMessage}</p>    
+            <div class="meme-container">
+                <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
+                <p class="meme-text text-${meme}">${memeMessage}</p>    
+            </div>
         </li>
     `
         //print the plain message when there is no command existing

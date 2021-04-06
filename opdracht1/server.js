@@ -8,6 +8,10 @@ const port = process.env.PORT || 4000
 app.use(express.static(path.resolve('public')))
 
 io.on('connection', (socket) => {
+
+  socket.on('joinChat', user => {
+    io.emit('message', { username: 'Chatbot', message: `${user} has joined the room` })
+  })
   console.log('user connected');
 
   socket.on('message', (message) => {
