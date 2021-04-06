@@ -18,16 +18,18 @@ form.addEventListener('submit', (e) => {
 })
 
 socket.on('message', function (message) {
+    let strippedMesssage = message.replace(/(<([^>]+)>)/gi, "");
+    console.log(strippedMesssage)
     let element = null;
 
     //when the user adds the meme command
-    if (message.includes('!meme')) {
+    if (strippedMesssage.includes('!meme')) {
         //pick random meme
         let randomNumber = Math.floor(Math.random() * memes.length)
         let meme = memes[randomNumber]
 
         //remove command from message to create meme text
-        let memeMessage = message.split('!meme ')[1]
+        let memeMessage = strippedMesssage.split('!meme ')[1]
         //create the list element for the meme
         element = `
         <li>
@@ -39,7 +41,7 @@ socket.on('message', function (message) {
     } else {
         element = `  
         <li>
-            <p>${message}</p>
+            <p>${strippedMesssage}</p>
         </li>
         `
     }
