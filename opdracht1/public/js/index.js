@@ -1,3 +1,7 @@
+const form = document.getElementById('chat-form')
+let messages = document.querySelector('.messages')
+let input = document.querySelector('#chat-form input')
+let memeButton = document.querySelector('.meme-button')
 const socket = io()
 
 //GET username from URL
@@ -11,9 +15,7 @@ if (!user) {
 // join chat
 socket.emit('joinChat', user)
 
-const form = document.getElementById('chat-form')
-let messages = document.querySelector('.messages')
-let input = document.querySelector('#chat-form input')
+
 console.log(input);
 //all meme images
 let memes = [
@@ -36,8 +38,10 @@ socket.on('message', function (message) {
     //check if the message is yours
     let messageClass = ''
     if (message.id === socket.id) {
-        console.log('true')
         messageClass = 'your-message'
+    }
+    else if (message.username === 'Chatbot') {
+        messageClass = 'chatbot-message'
     }
     let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, "");
     let element = null;
@@ -73,4 +77,10 @@ socket.on('message', function (message) {
     //insert the element into the html
     messages.insertAdjacentHTML('beforeend', element)
     messages.scrollTop = messages.scrollHeight
+})
+
+// handle memebutton 
+memeButton.addEventListener('click', () => {
+    input.value = '!meme ' + input.value
+    input.focus()
 })
