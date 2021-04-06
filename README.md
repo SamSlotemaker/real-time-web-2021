@@ -4,3 +4,6 @@
 
 ### Description
 A little chat option on the teampage of our group, where you can chat with online members and make small memes with the `!meme` command.
+
+### Live link
+https://meme-team-chat.herokuapp.com/

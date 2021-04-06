@@ -1,7 +1,17 @@
 const socket = io()
+
+//GET username from URL
+let { user } = Qs.parse(location.search, {
+    ignoreQueryPrefix: true
+})
+if (!user) {
+    user = 'Guest'
+}
+console.log(user)
 const form = document.getElementById('chat-form')
 let messages = document.querySelector('.messages')
-let input = document.querySelector('input')
+let input = document.querySelector('#chat-form input')
+console.log(input);
 //all meme images
 let memes = [
     'meme1',
@@ -21,7 +31,7 @@ socket.on('message', function (message) {
     let strippedMesssage = message.replace(/(<([^>]+)>)/gi, "");
     console.log(strippedMesssage)
     let element = null;
-
+    let userElement = `<strong>${user}:</strong>`
     //when the user adds the meme command
     if (strippedMesssage.includes('!meme')) {
         //pick random meme
@@ -33,6 +43,7 @@ socket.on('message', function (message) {
         //create the list element for the meme
         element = `
         <li>
+            ${userElement}
             <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
         <p class="meme-text text-${meme}">${memeMessage}</p>    
         </li>
@@ -41,6 +52,7 @@ socket.on('message', function (message) {
     } else {
         element = `  
         <li>
+            ${userElement}
             <p>${strippedMesssage}</p>
         </li>
         `
