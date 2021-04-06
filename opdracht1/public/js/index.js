@@ -2,6 +2,7 @@ const socket = io()
 const form = document.getElementById('chat-form')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('input')
+//all meme images
 let memes = [
     'meme1',
     'meme2'
@@ -9,8 +10,6 @@ let memes = [
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log('submitted')
-
     if (input.value) {
         socket.emit('message', input.value)
         input.value = ''
@@ -19,15 +18,33 @@ form.addEventListener('submit', (e) => {
 })
 
 socket.on('message', function (message) {
-    console.log(message);
-    let randomNumber = Math.floor(Math.random() * memes.length)
-    let meme = memes[randomNumber]
-    let element = `
-    <li>
-        <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
-       <p class="meme-text text-${meme}">${message}</p>    
-    </li>
+    let element = null;
+
+    //when the user adds the meme command
+    if (message.includes('!meme')) {
+        //pick random meme
+        let randomNumber = Math.floor(Math.random() * memes.length)
+        let meme = memes[randomNumber]
+
+        //remove command from message to create meme text
+        let memeMessage = message.split('!meme ')[1]
+        //create the list element for the meme
+        element = `
+        <li>
+            <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
+        <p class="meme-text text-${meme}">${memeMessage}</p>    
+        </li>
     `
+        //print the plain message when there is no command existing
+    } else {
+        element = `  
+        <li>
+            <p>${message}</p>
+        </li>
+        `
+    }
+
+    //insert the element into the html
     messages.insertAdjacentHTML('beforeend', element)
     messages.scrollTop = messages.scrollHeight
 })
