@@ -73,6 +73,17 @@ main .container {
     left: 0;
 }
 
+.chat-page h2 {
+    margin-bottom: 0em;
+}
+
+.chat-page h3 {
+    text-align: center;
+    opacity: .7;
+    font-size: 1em;
+    margin-bottom: 2em;
+}
+
 .chat {
     margin: 5em auto;
     max-width: 600px;
@@ -132,6 +143,12 @@ main .container {
     text-align: right;
 }
 
+.messages li strong {
+    margin-bottom: .3em;
+    display: block;
+}
+
+
 .messages li.your-message {
     text-align: left;
 }
@@ -163,7 +180,7 @@ main .container {
 
 #username-form input {
     display: block;
-    margin: auto;
+    margin: 1em auto;
 }
 
 #chat-form input[type="text"],

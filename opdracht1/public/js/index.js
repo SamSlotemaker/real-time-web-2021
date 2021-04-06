@@ -2,6 +2,7 @@ const form = document.getElementById('chat-form')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
 let memeButton = document.querySelector('.meme-button')
+let onlineCount = document.querySelector('#online-count')
 const socket = io()
 
 //GET username from URL
@@ -14,6 +15,12 @@ if (!user) {
 
 // join chat
 socket.emit('joinChat', user)
+socket.on('joinChat', res => {
+    onlineCount.textContent = res
+})
+socket.on('leaveChat', res => {
+    onlineCount.textContent = res
+})
 
 
 console.log(input);

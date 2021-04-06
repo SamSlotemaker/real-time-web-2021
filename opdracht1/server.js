@@ -7,10 +7,13 @@ const port = process.env.PORT || 4000
 
 app.use(express.static(path.resolve('public')))
 
-io.on('connection', (socket) => {
+let onlineUsers = 0
 
+io.on('connection', (socket) => {
   socket.on('joinChat', user => {
+    onlineUsers++
     io.emit('message', { username: 'Chatbot', message: `${user} has joined the room` })
+    io.emit('joinChat', onlineUsers)
   })
   console.log('user connected');
 
@@ -20,7 +23,8 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    onlineUsers--
+    io.emit('leaveChat', onlineUsers)
   })
 })
 
