@@ -24,7 +24,8 @@ let memes = [
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
-        socket.emit('message', { username: user, message: input.value })
+        socket.emit('message', { id: socket.id, username: user, message: input.value })
+
         input.value = ''
         input.focus()
     }
@@ -32,6 +33,12 @@ form.addEventListener('submit', (e) => {
 
 socket.on('message', function (message) {
     console.log(message)
+    //check if the message is yours
+    let messageClass = ''
+    if (message.id === socket.id) {
+        console.log('true')
+        messageClass = 'your-message'
+    }
     let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, "");
     let element = null;
     let userElement = `<strong>${message.username}:</strong>`
@@ -45,7 +52,7 @@ socket.on('message', function (message) {
         let memeMessage = strippedMesssage.split('!meme ')[1]
         //create the list element for the meme
         element = `
-        <li>
+        <li class="${messageClass}">
             ${userElement}
             <div class="meme-container">
                 <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
@@ -56,7 +63,7 @@ socket.on('message', function (message) {
         //print the plain message when there is no command existing
     } else {
         element = `  
-        <li>
+        <li class="${messageClass}">
             ${userElement}
             <p>${strippedMesssage}</p>
         </li>

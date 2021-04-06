@@ -75,10 +75,23 @@ main .container {
 .messages .meme-container {
     position: relative;
     max-width: 300px;
+    margin-left: auto;
+}
+
+.messages .your-message .meme-container {
+    position: relative;
+    max-width: 300px;
+    margin-left: 0;
 }
 
 .messages li {
+    padding-right: .5em;
     margin: .5em 0em;
+    text-align: right;
+}
+
+.messages li.your-message {
+    text-align: left;
 }
 
 .messages .meme {
