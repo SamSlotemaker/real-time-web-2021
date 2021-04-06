@@ -7,7 +7,6 @@ let { user } = Qs.parse(location.search, {
 if (!user) {
     user = 'Guest'
 }
-console.log(user)
 const form = document.getElementById('chat-form')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
@@ -21,17 +20,17 @@ let memes = [
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
-        socket.emit('message', input.value)
+        socket.emit('message', { username: user, message: input.value })
         input.value = ''
         input.focus()
     }
 })
 
 socket.on('message', function (message) {
-    let strippedMesssage = message.replace(/(<([^>]+)>)/gi, "");
-    console.log(strippedMesssage)
+    console.log(message)
+    let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, "");
     let element = null;
-    let userElement = `<strong>${user}:</strong>`
+    let userElement = `<strong>${message.username}:</strong>`
     //when the user adds the meme command
     if (strippedMesssage.includes('!meme')) {
         //pick random meme
