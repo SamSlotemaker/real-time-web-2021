@@ -1,33 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
 
+:root {
+    --color1: #79d9ff
+}
+
 * {
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-}
-
-header {
-    background-color: grey;
-    margin-bottom: 2rem;
-    padding: 3rem 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    text-align: center;
-    background-color: black;
-    color: white;
 }
 
 header h1 {
@@ -38,19 +20,153 @@ header img {
     max-width: 150px;
 }
 
-header .chat-link {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    width: 5em;
-    height: 5em;
-    color: black;
-    background-color: white;
-    top: 1em;
-    left: 1em;
+/* LOGIN PAGE */
+.login {
+    background-color: #171717;
+    color: white;
+    height: 100vh;
+    display: grid;
+    place-items: center;
 }
+
+.login h1 {
+    font-size: 2em;
+}
+
+.login .error {
+    color: rgb(177, 0, 0);
+    font-weight: 500;
+    max-width: 50em;
+    margin-bottom: 2em;
+}
+
+.login .error a {
+    color: white;
+}
+
+.login form input,
+.login form strong {
+    display: block;
+}
+
+.login form input {
+    padding: 1em;
+    margin: 1em auto;
+}
+
+.login form label,
+.platforms legend {
+    letter-spacing: .1em;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+.platforms div label {
+    text-align: left;
+}
+
+.platforms legend {
+    margin-bottom: 1em;
+}
+
+/* inputs styling */
+/* The container */
+.platforms label {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.platforms label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.platforms {
+    border: none;
+
+}
+
+.platforms div {
+    margin: auto;
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: start;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.login form label:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.login form label input:checked~.checkmark {
+    background-color: var(--color1);
+}
+
+.join-chat-button {
+    position: relative;
+    display: block;
+    margin: 2em auto;
+    width: 10em;
+    cursor: pointer;
+    padding: 1em;
+    color: var(--color1);
+    box-shadow: inset 0px 0px 8px -1px rgba(121, 217, 255, 1);
+    background-color: #242424;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: .1em;
+    border: none;
+}
+
+.join-chat-button:focus {
+    outline: none;
+}
+
+.join-chat-button::after,
+.join-chat-button::before {
+    content: "";
+    position: absolute;
+    background-color: var(--color1);
+    left: 0%;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transition: .8s ease-in-out;
+}
+
+.join-chat-button::before {
+    top: 0px;
+}
+
+.join-chat-button::after {
+    bottom: 0px;
+}
+
+.join-chat-button:hover::after,
+.join-chat-button:hover::before {
+    transform: scaleX(1);
+}
+
+/* MAIN */
 
 main .container {
     max-width: 1300px;
@@ -60,17 +176,30 @@ main .container {
 }
 
 .chat-page {
-    background: url('https://i.pinimg.com/originals/36/f0/94/36f0949c623b61a235fd6645fa507236.jpg');
+    background: url('https://gmedia.playstation.com/is/image/SIEPDC/call-of-duty-modern-warfare-features-section-background-desktop-01-ps4-en-15oct19?$4000px$');
     /* background-size: ; */
     background-repeat: no-repeat;
     color: white;
 }
 
-.chat-page header {
-    background-color: transparent;
+.chat-page .logout {
+    display: block;
+    width: 10em;
+    text-align: center;
+    background-color: #fff;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 1em;
+    right: 1em;
+    padding: .5em;
+    color: black;
+    margin-left: auto;
+}
+
+.chat-container {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+
 }
 
 .chat-page h2 {
@@ -86,6 +215,7 @@ main .container {
 
 .chat {
     margin: 5em auto;
+    width: 100%;
     max-width: 600px;
     padding: 2em;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
@@ -111,7 +241,7 @@ main .container {
     margin: -20px;
 }
 
-.chat ul {
+.chat .messages {
     width: 100%;
 
     margin: auto;
@@ -137,21 +267,47 @@ main .container {
     opacity: .6;
 }
 
-.messages li {
+.messages>li {
     padding-right: .5em;
     margin: .5em 0em;
     text-align: right;
 }
 
-.messages li strong {
-    margin-bottom: .3em;
+.messages>li strong {
+    margin-bottom: 0em;
+    color: var(--color1);
     display: block;
 }
 
+.messages li p {
+    margin-top: .3em;
+}
 
-.messages li.your-message {
+.messages .stats {
+    font-size: .9em;
+    display: flex;
+    list-style-type: none;
+}
+
+.messages .stats>li {
+    opacity: .7;
+    margin-right: 1em;
+}
+
+.messages li:not(.your-message) .stats>li:first-of-type {
+    margin-left: auto
+}
+
+.messages .stats>li:last-of-type {
+    margin-right: 0;
+}
+
+
+
+.messages>li.your-message {
     text-align: left;
 }
+
 
 .messages .meme {
     width: 100%;
@@ -194,15 +350,15 @@ main .container {
 }
 
 
-
 #chat-form {
     display: flex;
     justify-content: center;
 }
 
 #chat-form button {
-    background-color: #006161;
-    color: white;
+    font-weight: bold;
+    background-color: #313131;
+    color: var(--color1);
     border-radius: 0px 20px 20px 0px;
     padding: .5em 1em;
     border: none;

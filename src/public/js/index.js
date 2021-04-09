@@ -33,7 +33,8 @@ let memes = [
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
-        socket.emit('message', { id: socket.id, username: user, message: input.value })
+        const d = new Date()
+        socket.emit('message', { id: socket.id, username: user, message: input.value, time: d.getTime() })
 
         input.value = ''
         input.focus()
@@ -44,17 +45,32 @@ socket.on('message', function (message) {
     console.log(message)
     //check if the message is yours
     let messageClass = ''
+    let userElement = null
     if (message.id === socket.id) {
         messageClass = 'your-message'
     }
     else if (message.username === 'Chatbot') {
         messageClass = 'chatbot-message'
+        userElement = `<strong>${message.username}:</strong>
+    `
     }
+
+    if (message.username !== 'Chatbot') {
+        userElement = `<strong>${message.username}:</strong>
+        <ul class="stats">
+        <li>Wins: ${message.wins}</li>
+        <li>KD: ${message.kd}</li>
+    </ul>
+        `
+    }
+
+
     let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, "");
     let element = null;
-    let userElement = `<strong>${message.username}:</strong>`
+
     //when the user adds the meme command
     if (strippedMesssage.includes('!meme')) {
+        console.log('meme send')
         //pick random meme
         let randomNumber = Math.floor(Math.random() * memes.length)
         let meme = memes[randomNumber]
@@ -62,6 +78,8 @@ socket.on('message', function (message) {
         //remove command from message to create meme text
         let memeMessage = strippedMesssage.split('!meme ')[1]
         //create the list element for the meme
+
+
         element = `
         <li class="${messageClass}">
             ${userElement}

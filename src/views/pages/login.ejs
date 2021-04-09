@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Spacecoders team chat</title>
+</head>
+
+<body class="login">
+
+    <section>
+        <h1>Welcome to Warzone team finder</h1>
+        <form action="/login" method="POST">
+            <% if(error === true) {%>
+            <strong class="error">I'm sorry, the username you provided doesn't exist on the chosen platform, of is set
+                to private. You can read how to change that <a
+                    href="https://www.dexerto.com/call-of-duty/how-to-make-call-of-duty-stats-public-warzone-black-ops-cold-war-1495112/">here.</a></strong>
+            <% }%>
+            <label for="tag">Gamertag</label>
+            <input name="tag" type="text" id="tag">
+
+            <fieldset class="platforms">
+                <legend>Platform</legend>
+                <div>
+                    <label for="psn">Playstation
+                        <input type="radio" name="platform" id="psn" value="psn">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label for="xbl">Xbox Live
+                        <input type="radio" name="platform" id="xbl" value="xbl">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label for="battle">Battle.net
+                        <input type="radio" name="platform" id="battle" value="battle">
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label for="acti">Activision ID
+                        <input type="radio" name="platform" id="acti" value="acti">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </fieldset>
+
+
+            <button class="join-chat-button">Join chat</button>
+        </form>
+    </section>
+</body>
+
+</html>
