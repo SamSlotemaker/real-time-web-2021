@@ -13,6 +13,7 @@ async function getDetailsWZ(username, platform) {
     const data = API.MWwz(username, platform).then(data => {
         return data;
     }).catch(err => {
+        console.log(err)
         return false
     });
     return data;

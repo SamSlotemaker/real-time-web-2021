@@ -3,18 +3,22 @@ let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
 let memeButton = document.querySelector('.meme-button')
 let onlineCount = document.querySelector('#online-count')
+let averageKD = document.querySelector('.average-kd')
+let suggestedTeams = document.querySelector('.suggested-teams')
 const socket = io()
 
 //GET username from URL
-let { user } = Qs.parse(location.search, {
+const splittedUrl = location.href.split('?')
+let { user, platform } = Qs.parse(splittedUrl[1], {
     ignoreQueryPrefix: true
 })
+
 if (!user) {
     user = 'Guest'
 }
 
 // join chat
-socket.emit('joinChat', user)
+socket.emit('joinChat', { user, platform })
 socket.on('joinChat', res => {
     onlineCount.textContent = res
 })
@@ -22,8 +26,42 @@ socket.on('leaveChat', res => {
     onlineCount.textContent = res
 })
 
+socket.on('teamChange', data => {
+    console.log(data)
+    console.log('team change')
+    suggestedTeams.innerHTML = '<h2>Suggestes teams</h2>'
 
-console.log(input);
+    data.forEach(team => {
+        let teamListItems = ''
+        team.members.forEach(teamMember => {
+            teamListItems +=
+                `
+            <li>
+                 <strong>${teamMember.username}</strong>
+                 <ul class="stats">
+                     <li>Wins: ${teamMember.wins}</li>
+                     <li>KD: ${teamMember.kd}</li>
+                 </ul>
+             </li>
+            `})
+
+        suggestedTeams.insertAdjacentHTML('beforeend',
+            `   <article>
+                <h3>${team.team}</h3>
+                <strong class="average-kd"></strong>
+                <ul class="team">
+                ${teamListItems}
+                </ul>
+            </article>
+        `)
+    })
+
+
+
+
+})
+
+
 //all meme images
 let memes = [
     'meme1',
@@ -34,12 +72,14 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
         const d = new Date()
-        socket.emit('message', { id: socket.id, username: user, message: input.value, time: d.getTime() })
+        socket.emit('message', { id: socket.id, username: user, platform: platform, message: input.value, time: d.getTime() })
 
         input.value = ''
         input.focus()
     }
 })
+
+socket.on('testObject', res => console.log(res))
 
 socket.on('message', function (message) {
     console.log(message)

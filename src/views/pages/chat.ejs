@@ -20,6 +20,28 @@
     </header>
 
     <main class="chat-container">
+        <section class="suggested-teams">
+            <h2>Suggestes teams</h2>
+            <% createdTeams.forEach(team => { %>
+            <article>
+                <h3><%= team.team %></h3>
+                <strong class="average-kd"></strong>
+                <ul class="team">
+                    <% team.members.forEach(member => { %>
+                    <li>
+                        <strong><%= member.username %></strong>
+                        <ul class="stats">
+                            <li>Wins: <%= member.wins %></li>
+                            <li>KD: <%= member.kd %></li>
+                        </ul>
+                        <p><%= member.message %></p>
+                    </li>
+                    <% }) %>
+                </ul>
+            </article>
+            <% }) %>
+        </section>
+
         <section class="chat">
             <h2>Chat</h2>
             <h3>Users online: <span id="online-count">0</span></h3>
