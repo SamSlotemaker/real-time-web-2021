@@ -1,11 +1,18 @@
 # Real-Time Web @cmda-minor-web · 2020/21
 
-## Assignment 1
+## Table of contents
+1. [Description]()
+2. [Installation]()
+3. [Concept]()
+4. [MOSCOW feature list]()
+5. [Data]()
+6. [Data flowchart]()
+1. [Description]()
 
-### Description
+### :book:Description
 An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member.
 
-### Installation
+### :gear:Installation
 1. Clone this repo
 ```
 git clone https://github.com/SamSlotemaker/warzone-teamfinder.git
@@ -28,7 +35,7 @@ npm run dev
 ```
 
 
-### Concept
+### :pencil:Concept
 
 #### Login
 Users need to login with thier call of duty info
@@ -38,7 +45,8 @@ Users need to login with thier call of duty info
 This is to authenticate real accounts and so stats can be portrayed when they are chatting.
 
 The idea is to show something like:
-``` 
+
+```
 User123
 KD: 1.01 Wins: 10 Platform: Playstation
 Hey i'm user123
@@ -54,7 +62,7 @@ I want to make an option which sends a 'card' with a detailed overview of a play
 #### Chat history 
 Users need to see old chats from when they weren't online, so they can still see other people who recently asked for a team. Preferably with a time stamp from when they were send
 
-### MOSCOW FEATURE LIST
+### :clipboard:MOSCOW feature list
 Must have:
 * [X] Chatting
 * [X] Showing stats
@@ -75,11 +83,11 @@ Could have:
 Would have:
 * [ ] Realtime create-a-class
 
-### External data
+### :minidisc:Data
 I'm using a call of duty api from 
 https://lierrmm.github.io/capi-docs/#/
 
-### Complete GET response
+#### Complete GET response
 ![api_data](https://user-images.githubusercontent.com/60625329/114550981-1a304b00-9c63-11eb-9718-57bb972471a0.png)
 
 <details>
@@ -1642,7 +1650,9 @@ https://lierrmm.github.io/capi-docs/#/
   ```
 </details>
 
-### Data flowchart
+#### Data flowchart
+![data-flowchart](https://user-images.githubusercontent.com/60625329/114560791-494bba00-9c6d-11eb-8665-4c08d99be57a.png)
+
 
 ### Live link meme-chat
 Live link of the meme-chat, code is available under the meme-chat branch.
