@@ -1,13 +1,12 @@
 # Real-Time Web @cmda-minor-web · 2020/21
 
 ## Table of contents
-1. [Description]()
-2. [Installation]()
-3. [Concept]()
-4. [MOSCOW feature list]()
-5. [Data]()
-6. [Data flowchart]()
-1. [Description]()
+1. [Description](https://github.com/SamSlotemaker/warzone-teamfinder#bookdescription)
+2. [Installation](https://github.com/SamSlotemaker/warzone-teamfinder#gearinstallation)
+3. [Concept](https://github.com/SamSlotemaker/warzone-teamfinder#pencilconcept)
+4. [MOSCOW feature list](https://github.com/SamSlotemaker/warzone-teamfinder#clipboardmoscow-feature-list)
+5. [Data](https://github.com/SamSlotemaker/warzone-teamfinder#minidiscdata)
+
 
 ### :book:Description
 An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member.
