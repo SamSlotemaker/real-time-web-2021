@@ -5,6 +5,29 @@
 ### Description
 An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member.
 
+### Installation
+1. Clone this repo
+```
+git clone https://github.com/SamSlotemaker/warzone-teamfinder.git
+```
+2. Make sure you're in the right folder
+```
+cd warzone-teamfinder
+```
+3. Install dependencies
+```
+npm install
+```
+4. Start the application
+```
+npm start
+```
+5. For development you can run it in dev mode
+```
+npm run dev
+```
+
+
 ### Concept
 
 #### Login
@@ -31,11 +54,34 @@ I want to make an option which sends a 'card' with a detailed overview of a play
 #### Chat history 
 Users need to see old chats from when they weren't online, so they can still see other people who recently asked for a team. Preferably with a time stamp from when they were send
 
+### MOSCOW FEATURE LIST
+Must have:
+* [X] Chatting
+* [X] Showing stats
+* [X] Team finder
+* [X] Profile authentication
+
+Should have: 
+* [X] Chat history
+* [ ] Team finder on KD (or other stats)
+* [ ] Chat timestamps
+
+
+Could have:
+* [ ] Chat commands
+* [ ] Detailed stats
+
+
+Would have:
+* [ ] Realtime create-a-class
+
 ### External data
 I'm using a call of duty api from 
 https://lierrmm.github.io/capi-docs/#/
 
-### GET response
+### Complete GET response
+![api_data](https://user-images.githubusercontent.com/60625329/114550981-1a304b00-9c63-11eb-9718-57bb972471a0.png)
+
 <details>
   <summary>response</summary>
 
@@ -1596,6 +1642,7 @@ https://lierrmm.github.io/capi-docs/#/
   ```
 </details>
 
+### Data flowchart
 
 ### Live link meme-chat
 Live link of the meme-chat, code is available under the meme-chat branch.
