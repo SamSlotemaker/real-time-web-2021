@@ -22,12 +22,13 @@
     <main class="chat-container">
         <section class="suggested-teams">
             <h2>Suggestes teams</h2>
-            <% createdTeams.forEach(team => { %>
+            <% if (createdTeams.teams.length > 0) { %>
+            <% createdTeams.teams.forEach((team, index) => { %>
             <article>
-                <h3><%= team.team %></h3>
+                <h3>team <%= index + 1 %></h3>
                 <strong class="average-kd"></strong>
                 <ul class="team">
-                    <% team.members.forEach(member => { %>
+                    <% team.forEach(member => { %>
                     <li>
                         <strong><%= member.username %></strong>
                         <ul class="stats">
@@ -40,6 +41,7 @@
                 </ul>
             </article>
             <% }) %>
+            <% } %>
         </section>
 
         <section class="chat">

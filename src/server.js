@@ -16,9 +16,6 @@ app.set('views', path.join(__dirname, 'views/pages'))
 // login to COD API
 api.login();
 
-// initial team number
-let teamNumber = 1
-
 // DATABASE CONNECTION
 let messagesCollection = null;
 let teamsCollection = null
@@ -31,6 +28,9 @@ client.connect(err => {
   messagesCollection = client.db("chat").collection("messages");
   teamsCollection = client.db("chat").collection("teams");
   usersCollection = client.db("chat").collection("users");
+  messagesCollection.deleteMany()
+  teamsCollection.deleteMany()
+  usersCollection.deleteMany()
   console.log('database connection succesful');
   http.listen(port, () => console.log(`listening on ${port}`))
 });
@@ -41,9 +41,11 @@ app.get('/', (req, res) => {
 })
 app.get('/chat', async (req, res) => {
   const oldMessages = await messagesCollection.find().toArray()
-  const createdTeams = await teamsCollection.find().toArray()
-  console.log('teams are: ' + createdTeams)
-
+  let createdTeams = await teamsCollection.findOne()
+  console.log(createdTeams)
+  if (!createdTeams) {
+    createdTeams = { teams: [] }
+  }
   res.render('chat.ejs', { oldMessages, createdTeams })
 })
 
@@ -70,9 +72,7 @@ let onlineUsers = 0
 io.on('connection', (socket) => {
   socket.on('joinChat', user => {
 
-    onlineUsers++
     io.emit('message', { username: 'Chatbot', message: `${user.user} has joined the room` })
-    io.emit('joinChat', onlineUsers)
 
     // collect userdata to create teams
     api.getDetailsWZ(user.user, user.platform).then(async data => {
@@ -90,26 +90,18 @@ io.on('connection', (socket) => {
       // add user to userscollection when online
       await usersCollection.insertOne(userData)
       // add player to team database
-      let oldTeam = await teamsCollection.findOne({ team: 'team' + teamNumber })
+      let allUsers = await usersCollection.find().toArray()
+      let teams = createTeams(allUsers)
 
-      if (oldTeam) {
-        if (oldTeam.members.length > 3) {
-          teamNumber++
-        }
-        oldTeam.members.push(userData)
-      } else {
-        oldTeam = {
-          team: 'team' + teamNumber,
-          members: [userData]
-        }
-      }
-      await teamsCollection.updateOne({ team: 'team' + teamNumber }, { $set: oldTeam }, { upsert: true })
+      //delete existing team
+      await teamsCollection.deleteOne()
+      //insert new team
+      await teamsCollection.insertOne({ teams: teams })
 
-      const teams = await teamsCollection.find().toArray()
-      console.log(teams)
-
-      // const teamAverage = await getTeamAverage(team)
-      io.emit('teamChange', teams)
+      const allTeams = await teamsCollection.findOne()
+      let onlineUsers = allUsers.length
+      io.emit('joinChat', onlineUsers)
+      io.emit('teamChange', allTeams)
     })
   })
 
@@ -140,38 +132,42 @@ io.on('connection', (socket) => {
 
     if (user) {
       //delete users from team and online
-      let oldTeam = await teamsCollection.findOne({ team: 'team' + teamNumber })
-
-      if (oldTeam) {
-        let index = oldTeam.members.findIndex(member => member.id === socket.id)
-        console.log(index)
-        if (index !== -1) {
-          console.log('remove member');
-          oldTeam.members.splice(index, 1)
-        }
-      }
-
-      await teamsCollection.updateOne({ team: 'team' + teamNumber }, { $set: oldTeam }, { upsert: true })
-
-
       await usersCollection.deleteOne({ id: socket.id })
-      const team = await teamsCollection.find().toArray()
-      console.log(team)
+
+      let allUsers = await usersCollection.find().toArray()
+      let teams = createTeams(allUsers)
+
+      //delete existing team
+      await teamsCollection.deleteOne()
+      //insert new team
+      await teamsCollection.insertOne({ teams: teams })
+
+      const allTeams = await teamsCollection.findOne()
       io.emit('message', { username: 'Chatbot', message: `${user.username} has left.` })
 
       // const teamAverage = await getTeamAverage(team)
-      io.emit('teamChange', team)
+      io.emit('teamChange', allTeams)
+
+      let onlineUsers = allUsers.length
+      io.emit('leaveChat', onlineUsers)
     }
-
-
-    onlineUsers--
-    io.emit('leaveChat', onlineUsers)
   })
 })
 
-async function getTeamAverage(array) {
-  const averageTeamKd = array.reduce((acc, cur) => {
-    return acc + Number(cur.kd)
-  }, 0) / array.length
-  return averageTeamKd
+//returns teams of 4 players from given users
+function createTeams(users) {
+  let maxTeams = Math.ceil(users.length / 4)
+  let teams = []
+  //create a team for the amount of teams possible
+  for (let i = 0; i < maxTeams; i++) {
+    teams.push([])
+  }
+  let teamNumber = 0;
+  users.forEach((user) => {
+    teams[teamNumber].push(user)
+    if (teams[teamNumber].length === 4) {
+      teamNumber++
+    }
+  })
+  return teams
 }

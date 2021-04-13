@@ -31,9 +31,9 @@ socket.on('teamChange', data => {
     console.log('team change')
     suggestedTeams.innerHTML = '<h2>Suggestes teams</h2>'
 
-    data.forEach(team => {
+    data.teams.forEach((team, index) => {
         let teamListItems = ''
-        team.members.forEach(teamMember => {
+        team.forEach(teamMember => {
             teamListItems +=
                 `
             <li>
@@ -47,7 +47,7 @@ socket.on('teamChange', data => {
 
         suggestedTeams.insertAdjacentHTML('beforeend',
             `   <article>
-                <h3>${team.team}</h3>
+                <h3>team ${index + 1}</h3>
                 <strong class="average-kd"></strong>
                 <ul class="team">
                 ${teamListItems}
