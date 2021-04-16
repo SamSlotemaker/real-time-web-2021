@@ -54,6 +54,7 @@ app.post('/login', (req, res) => {
   // try if user exists
   api.getDetailsWZ(req.body.tag, req.body.platform).then(response => {
     console.log(req.body.tag, req.body.platform)
+    console.log(response)
     if (!response) {
       console.log('invalid user');
       res.render('login.ejs', { error: true })
