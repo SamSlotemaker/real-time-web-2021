@@ -9,6 +9,7 @@ async function login() {
         console.log('login error is: ' + Error);
     }
 }
+
 async function getDetailsWZ(username, platform) {
     const data = API.MWwz(username, platform).then(data => {
         return data;
@@ -17,7 +18,6 @@ async function getDetailsWZ(username, platform) {
         return false
     });
     return data;
-
 }
 
 exports.login = login;

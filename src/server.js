@@ -13,9 +13,6 @@ app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views/pages'))
 
-// login to COD API
-api.login();
-
 // DATABASE CONNECTION
 let messagesCollection = null;
 let teamsCollection = null
@@ -24,13 +21,18 @@ let usersCollection = null
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://" + process.env.DB_USERNAME + ":" + process.env.DB_PASSWORD + "@cluster.alfy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
+client.connect(async (err) => {
   messagesCollection = client.db("chat").collection("messages");
   teamsCollection = client.db("chat").collection("teams");
   usersCollection = client.db("chat").collection("users");
-  messagesCollection.deleteMany()
-  teamsCollection.deleteMany()
-  usersCollection.deleteMany()
+  await messagesCollection.deleteMany()
+  await teamsCollection.deleteMany()
+  await usersCollection.deleteMany()
+
+  // login to COD API
+  await api.login();
+
+
   console.log('database connection succesful');
   http.listen(port, () => console.log(`listening on ${port}`))
 });
@@ -42,7 +44,6 @@ app.get('/', (req, res) => {
 app.get('/chat', async (req, res) => {
   const oldMessages = await messagesCollection.find().toArray()
   let createdTeams = await teamsCollection.findOne()
-  console.log(createdTeams)
   if (!createdTeams) {
     createdTeams = { teams: [] }
   }
@@ -66,8 +67,6 @@ app.post('/login', (req, res) => {
   })
 
 })
-
-let onlineUsers = 0
 
 //make io connection
 io.on('connection', (socket) => {
@@ -129,7 +128,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', async () => {
     const user = await usersCollection.findOne({ id: socket.id })
-
 
     if (user) {
       //delete users from team and online
