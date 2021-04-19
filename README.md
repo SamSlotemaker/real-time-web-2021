@@ -1,4 +1,4 @@
-# Real-Time Web @cmda-minor-web · 2020/21
+# Warzone Team Finder
 
 ## Table of contents
 1. [Description](https://github.com/SamSlotemaker/warzone-teamfinder#bookdescription)
@@ -9,10 +9,11 @@
 
 
 ### :book:Description
-An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member.
+An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member. Players will be added to a suggested team on joining the application, based on thier Kill/Death Ratio. Players can also join a custom team, while chatting with other online players. 
 
+#### Test account
+SamSuperman_12 | Playstation
 [LIVE LINK](https://warzone-teamfinder.herokuapp.com/)
-
 ### :gear:Installation
 1. Clone this repo
 ```
