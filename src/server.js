@@ -22,6 +22,7 @@ let messagesCollection = null
 let teamsCollection = null
 let usersCollection = null
 const uri = 'mongodb+srv://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@cluster.alfy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
 databaseConnection(uri)
 
 //render login on root
