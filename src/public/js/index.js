@@ -105,8 +105,6 @@ chatForm.addEventListener('submit', (e) => {
     }
 })
 
-socket.on('testObject', res => console.log(res))
-
 socket.on('message', function (message) {
 
     console.log(message.time)
