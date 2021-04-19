@@ -23,6 +23,7 @@ if (!user) {
 
 // join chat
 socket.emit('joinChat', { user, platform })
+//update onlinecounts
 socket.on('joinChat', res => {
     onlineCount.textContent = res
 })
@@ -30,6 +31,7 @@ socket.on('leaveChat', res => {
     onlineCount.textContent = res
 })
 
+//update changed teams
 socket.on('teamChange', data => {
     console.log(data)
     console.log('team change')
@@ -73,6 +75,7 @@ removeMemberForm.addEventListener('submit', (e) => {
     ownTeam.classList.toggle('joined')
 })
 
+//update cutom team
 socket.on('changeCustomTeam', users => {
     customTeam.innerHTML = ''
     users.forEach(user => {
@@ -95,6 +98,7 @@ let memes = [
     'meme2'
 ]
 
+//on submit chatmessage
 chatForm.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
@@ -105,10 +109,8 @@ chatForm.addEventListener('submit', (e) => {
     }
 })
 
+//add message
 socket.on('message', function (message) {
-
-    console.log(message.time)
-
     //check if the message is yours
     let messageClass = ''
     let userElement = null
@@ -120,7 +122,6 @@ socket.on('message', function (message) {
         userElement = `<strong>${message.username}:</strong>
     `
     }
-
     if (message.username !== 'Chatbot') {
         userElement = `<strong>${message.username}:</strong>
         <ul class="stats">
@@ -129,8 +130,7 @@ socket.on('message', function (message) {
     </ul>
         `
     }
-
-
+    //escape html tags
     let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, '')
     let element = null
 
@@ -144,8 +144,6 @@ socket.on('message', function (message) {
         //remove command from message to create meme text
         let memeMessage = strippedMesssage.split('!meme ')[1]
         //create the list element for the meme
-
-
         element = `
         <li class="${messageClass}">
             ${userElement}
@@ -156,8 +154,9 @@ socket.on('message', function (message) {
             </div>
         </li>
     `
-        //print the plain message when there is no command existing
+
     } else {
+        //print the plain message when there is no command existing
         element = `  
         <li class="${messageClass}">
             ${userElement}
