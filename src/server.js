@@ -25,6 +25,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://" + process.env.DB_USERNAME + ":" + process.env.DB_PASSWORD + "@cluster.alfy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(async (err) => {
+  console.log(err)
   messagesCollection = client.db("chat").collection("messages");
   teamsCollection = client.db("chat").collection("teams");
   usersCollection = client.db("chat").collection("users");
@@ -41,7 +42,6 @@ app.get('/', (req, res) => {
 app.get('/chat', async (req, res) => {
   const oldMessages = await messagesCollection.find().toArray()
   let createdTeams = await teamsCollection.findOne()
-  console.log(createdTeams)
   if (!createdTeams) {
     createdTeams = { teams: [] }
   }
@@ -53,7 +53,6 @@ app.post('/login', (req, res) => {
   // try if user exists
   api.getDetailsWZ(req.body.tag, req.body.platform).then(response => {
     console.log(req.body.tag, req.body.platform)
-    console.log(response)
     if (!response) {
       console.log('invalid user');
       res.render('login.ejs', { error: true })
@@ -155,6 +154,7 @@ io.on('connection', (socket) => {
 
 //returns teams of 4 players from given users
 function createTeams(users) {
+  let sortedArray = sortArrayOnKd(users)
   let maxTeams = Math.ceil(users.length / 4)
   let teams = []
   //create a team for the amount of teams possible
@@ -162,11 +162,19 @@ function createTeams(users) {
     teams.push([])
   }
   let teamNumber = 0;
-  users.forEach((user) => {
+  sortedArray.forEach((user) => {
     teams[teamNumber].push(user)
     if (teams[teamNumber].length === 4) {
       teamNumber++
     }
   })
   return teams
+}
+
+//sort high to low
+function sortArrayOnKd(array) {
+  let newArray = [...array]
+  return newArray.sort((a, b) => {
+    return b.kd - a.kd
+  })
 }
