@@ -1,5 +1,7 @@
 const chatForm = document.getElementById('chat-form')
 const teamForm = document.querySelector('.new-team-form')
+const removeMemberForm = document.querySelector('.remove-member-form')
+const ownTeam = document.querySelector('.own-team')
 const customTeam = document.querySelector('.own-team .team')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
@@ -63,6 +65,12 @@ socket.on('teamChange', data => {
 teamForm.addEventListener("submit", (e) => {
     e.preventDefault()
     socket.emit('addTeamMember', { id: socket.id })
+    ownTeam.classList.toggle('joined')
+})
+removeMemberForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    socket.emit('removeTeamMember', { id: socket.id })
+    ownTeam.classList.toggle('joined')
 })
 
 socket.on('changeCustomTeam', users => {
@@ -92,7 +100,6 @@ chatForm.addEventListener('submit', (e) => {
     if (input.value) {
         const d = new Date()
         socket.emit('message', { id: socket.id, username: user, platform: platform, message: input.value, time: d.getTime() })
-
         input.value = ''
         input.focus()
     }

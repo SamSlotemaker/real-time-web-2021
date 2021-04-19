@@ -219,6 +219,30 @@ main .container {
     margin-right: 1em;
 }
 
+.own-team.joined .new-team-form {
+    display: none;
+}
+
+.own-team.joined .remove-member-form {
+    display: block;
+}
+
+.own-team .remove-member-form {
+    display: none;
+}
+
+:is(.remove-member-form, .new-team-form) button {
+    background-color: #313131;
+    margin-right: 1em;
+    border-radius: 0px;
+    font-weight: bold;
+    background-color: #313131;
+    color: var(--color1);
+    padding: .5em 1em;
+    border: none;
+}
+
+
 
 .chat-page {
     background: url('https://gmedia.playstation.com/is/image/SIEPDC/call-of-duty-modern-warfare-features-section-background-desktop-01-ps4-en-15oct19?$4000px$');

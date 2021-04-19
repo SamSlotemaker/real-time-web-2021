@@ -109,10 +109,14 @@ io.on('connection', (socket) => {
 
   socket.on('addTeamMember', async (userObject) => {
     let user = await usersCollection.findOne({ id: userObject.id })
-
     await customTeamCollection.insertOne(user)
     const users = await customTeamCollection.find().toArray()
+    io.emit('changeCustomTeam', users)
+  })
 
+  socket.on('removeTeamMember', async (userObject) => {
+    await customTeamCollection.deleteOne({ id: socket.id })
+    const users = await customTeamCollection.find().toArray()
     io.emit('changeCustomTeam', users)
   })
 
