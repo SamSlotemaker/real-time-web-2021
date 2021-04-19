@@ -1,6 +1,6 @@
 # Warzone Team Finder
 
-## Table of contents
+## :pushpin:Table of contents
 1. [Description](https://github.com/SamSlotemaker/warzone-teamfinder#bookdescription)
 2. [Installation](https://github.com/SamSlotemaker/warzone-teamfinder#gearinstallation)
 3. [Concept](https://github.com/SamSlotemaker/warzone-teamfinder#pencilconcept)
@@ -11,16 +11,16 @@
 
 ---
 
-### :book:Description
+## :book:Description
 An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member. Players will be added to a suggested team on joining the application, based on thier Kill/Death Ratio. Players can also join a custom team, while chatting with other online players. 
 
-#### Test account
+### Test account
 SamSuperman_12 | Playstation
 [LIVE LINK](https://warzone-teamfinder.herokuapp.com/)
 
 ---
 
-### :gear:Installation
+## :gear:Installation
 1. Clone this repo
 ```
 git clone https://github.com/SamSlotemaker/warzone-teamfinder.git
@@ -44,9 +44,9 @@ npm run dev
 
 ---
 
-### :pencil:Concept
+## :pencil:Concept
 
-#### Login
+### Login
 Users need to login with thier call of duty info
 * Username
 * Platform
@@ -59,49 +59,49 @@ The idea is to show something like:
 User123
 KD: 1.01 Wins: 10 Platform: Playstation
 Hey i'm user123
-````
+```
 
-#### Chatting
+### Chatting
 Users can chat with other users, when they are looking for a team. I want to make a few standard options users can send, like: 
 _'Looking for +2, minimal KD: 1.5, minimal wins: 50'_
 
-#### Show detailed stats
+### Show detailed stats
 I want to make an option which sends a 'card' with a detailed overview of a player stats, with a button or with a '!stats' command, so users can show other players how good they are. It could be an idea to do something similar with recent matches. 
 
-#### Chat history 
+### Chat history 
 Users need to see old chats from when they weren't online, so they can still see other people who recently asked for a team. Preferably with a time stamp from when they were send
 
 ---
 
-### :clipboard:MOSCOW feature list
-Must have:
+## :clipboard:MOSCOW feature list
+#### Must have:
 * [X] Chatting
 * [X] Showing stats
 * [X] Team finder
 * [X] Profile authentication
 
-Should have: 
+#### Should have: 
 * [X] Chat history
 * [X] Team finder on KD (or other stats)
 * [X] Chat timestamps
 * [X] Custom team
  
 
-Could have:
+#### Could have:
 * [ ] Chat commands
 * [ ] Detailed stats
 
 
-Would have:
+#### Would have:
 * [ ] Realtime create-a-class
 
 ---
 
-### :minidisc:Data
+## :minidisc:Data
 I'm using a call of duty api from 
 https://lierrmm.github.io/capi-docs/#/
 
-#### API description 
+### API description 
 The call of duty API gives data about users, the data contains an overview of thier stats, unlocks, gamemodes, but also data about thier recent matches. 
 
 You can extrect the data by using methods suchs as: 
@@ -110,10 +110,10 @@ You can extrect the data by using methods suchs as:
 api.getDetailsWZ(username, platform)
 ```
 
-#### GET response
+### GET response
 ![api_data](https://user-images.githubusercontent.com/60625329/114550981-1a304b00-9c63-11eb-9718-57bb972471a0.png)
 
-##### Complete get response
+#### Complete get response
 <details>
   <summary>response</summary>
 
@@ -1676,35 +1676,60 @@ api.getDetailsWZ(username, platform)
 
 ---
 
-### Real-time events
+## Real-time events
 I am making use of the following real-time events, created by socket.io: 
 
-#### :computer: Connection
+### :computer: Connection
 when the user makes a connection he has to be added to a team and the chatbot will notice other user that someone has joined the chat. 
 
-#### :computer: Disconnect
+### :computer: Disconnect
 when the user disconnects, he has to be removed from the teams and the chatbot will send a message saying he left the chat. 
 
-#### :clipboard: AddTeamMember
+### :clipboard: AddTeamMember
 adds the current user to the custom team.
 
-#### :clipboard: RemoveTeamMember
+### :clipboard: RemoveTeamMember
 removes the current user from the custom team.
 
-#### :clipboard: teamChange
+### :clipboard: teamChange
 Everytime a user connects/disconnects, new teams will be formed with all users, depending on thier KD ratio.
 
-#### :speech_balloon: Message
+### :speech_balloon: Message
 handles the messages between server and clients.
 
-#### :speech_balloon: joinChat
+### :speech_balloon: joinChat
 User joins the chat, online count needs to go up.
 
-#### :speech_balloon: leaveChat
+### :speech_balloon: leaveChat
 User leaves the chat, online count needs to go down.
 
 ---
 
-### Data flowchart
+## :arrows_clockwise: Data flowchart
 ![data-flowchart](https://user-images.githubusercontent.com/60625329/114560791-494bba00-9c6d-11eb-8665-4c08d99be57a.png)
 
+## :package: NPM packages
+Discriptions are from the websites given or written by me when not existing.
+
+### Call-of-duty-api
+[Call-of-duty-api](https://www.npmjs.com/package/call-of-duty-api) is a promised based wrapper for the "private" API that Activision use on the callofduty.com website.
+
+### Dotenv
+[Dotenv](https://www.npmjs.com/package/dotenv) is a zero-dependency module that loads environment variables from a .env file into process.env. Storing configuration in the environment separate from code is based on The Twelve-Factor App methodology.
+
+### Ejs
+[Ejs](https://www.npmjs.com/package/ejs) is a template engine used to create dynamic web pages.
+
+### Express
+[Express](https://www.npmjs.com/package/express) is a small framework used to create node servers, making routing easier to setup and use.
+
+### Mongodb
+[Mongodb](https://www.npmjs.com/package/mongodb) is an online database used to store and collect JSON. 
+
+### Nodemon
+[Nodemon](https://www.npmjs.com/package/nodemon) is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+### Socket.IO
+[ Socket.IO](https://www.npmjs.com/package/socket.io) enables real-time bidirectional event-based communication
+
+### EsLint
+[ESLint](https://www.npmjs.com/package/eslint) is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code
