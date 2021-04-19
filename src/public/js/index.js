@@ -99,7 +99,7 @@ chatForm.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
         const d = new Date()
-        socket.emit('message', { id: socket.id, username: user, platform: platform, message: input.value, time: d.getTime() })
+        socket.emit('message', { id: socket.id, username: user, platform: platform, message: input.value, time: d.toLocaleString('en-GB') })
         input.value = ''
         input.focus()
     }
@@ -108,7 +108,9 @@ chatForm.addEventListener('submit', (e) => {
 socket.on('testObject', res => console.log(res))
 
 socket.on('message', function (message) {
-    console.log(message)
+
+    console.log(message.time)
+
     //check if the message is yours
     let messageClass = ''
     let userElement = null
@@ -150,6 +152,7 @@ socket.on('message', function (message) {
         <li class="${messageClass}">
             ${userElement}
             <div class="meme-container">
+            <time>${message.time}</time>
                 <img class="meme ${meme}" src="css/images/${meme}.jpg" alt="">
                 <p class="meme-text text-${meme}">${memeMessage}</p>    
             </div>
@@ -160,7 +163,7 @@ socket.on('message', function (message) {
         element = `  
         <li class="${messageClass}">
             ${userElement}
-            <p>${strippedMesssage}</p>
+            <p><time>${message.time}</time>${strippedMesssage}</p>
         </li>
         `
     }

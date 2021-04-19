@@ -172,7 +172,10 @@ main .container {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 2rem;
+}
 
+.teams>section {
+    margin-bottom: 5em;
 }
 
 :is(.suggested-teams, .own-team) ul {
@@ -337,6 +340,10 @@ main .container {
     opacity: .6;
 }
 
+.messages .chatbot-message strong {
+    color: orange;
+}
+
 .messages>li {
     padding-right: .5em;
     margin: .5em 0em;
@@ -351,6 +358,13 @@ main .container {
 
 .messages li p {
     margin-top: .3em;
+}
+
+.messages time {
+    display: block;
+    margin-bottom: 1em;
+    font-size: .7em;
+    opacity: .6;
 }
 
 .messages .stats {

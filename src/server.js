@@ -74,7 +74,8 @@ app.post('/login', (req, res) => {
 io.on('connection', (socket) => {
   socket.on('joinChat', user => {
     console.log(socket.id)
-    io.emit('message', { username: 'Chatbot', message: `${user.user} has joined the room` })
+    let time = new Date()
+    io.emit('message', { username: 'Chatbot', message: `${user.user} has joined the room`, time: time.toLocaleString('en-GB') })
 
     // collect userdata to create teams
     api.getDetailsWZ(user.user, user.platform).then(async data => {
@@ -129,6 +130,7 @@ io.on('connection', (socket) => {
       //create a response object with the warzone stats
       let newMessage = {
         id: message.id,
+        time: message.time,
         username: message.username,
         message: message.message,
         wins: BR_PROPERTIES.wins,
@@ -142,7 +144,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', async () => {
     const user = await usersCollection.findOne({ id: socket.id })
-
+    let time = new Date()
     if (user) {
       //delete users from team and online
       await usersCollection.deleteOne({ id: socket.id })
@@ -162,7 +164,7 @@ io.on('connection', (socket) => {
 
       const allTeams = await teamsCollection.findOne()
 
-      io.emit('message', { username: 'Chatbot', message: `${user.username} has left.` })
+      io.emit('message', { username: 'Chatbot', message: `${user.username} has left.`, time: time.toLocaleString('en-GB') })
 
       // const teamAverage = await getTeamAverage(team)
       io.emit('teamChange', allTeams)

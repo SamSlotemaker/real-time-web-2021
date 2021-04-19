@@ -92,7 +92,8 @@
                         <li>Wins: <%= message.wins %></li>
                         <li>KD: <%= message.kd %></li>
                     </ul>
-                    <p><%= message.message %></p>
+
+                    <p> <time><%= message.time %></time> <%= message.message %></p>
                 </li>
                 <% }) %>
             </ul>
