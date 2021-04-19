@@ -73,8 +73,8 @@ Must have:
 Should have: 
 * [X] Chat history
 * [X] Team finder on KD (or other stats)
-* [ ] Chat timestamps
-* [ ] Custom team
+* [X] Chat timestamps
+* [X] Custom team
  
 
 Could have:
