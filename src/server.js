@@ -14,28 +14,28 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views/pages'))
 
 // login to COD API
-api.login();
+api.login()
 
 // DATABASE CONNECTION
-let messagesCollection = null;
+let messagesCollection = null
 let teamsCollection = null
 let usersCollection = null
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://" + process.env.DB_USERNAME + ":" + process.env.DB_PASSWORD + "@cluster.alfy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const MongoClient = require('mongodb').MongoClient
+const uri = 'mongodb+srv://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@cluster.alfy7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 client.connect(async (err) => {
   console.log(err)
-  messagesCollection = client.db("chat").collection("messages");
-  teamsCollection = client.db("chat").collection("teams");
-  customTeamCollection = client.db("chat").collection("custom-team");
-  usersCollection = client.db("chat").collection("users");
+  messagesCollection = client.db('chat').collection('messages')
+  teamsCollection = client.db('chat').collection('teams')
+  customTeamCollection = client.db('chat').collection('custom-team')
+  usersCollection = client.db('chat').collection('users')
   await teamsCollection.deleteMany()
   await customTeamCollection.deleteMany()
   await usersCollection.deleteMany()
-  console.log('database connection succesful');
+  console.log('database connection succesful')
   http.listen(port, () => console.log(`listening on ${port}`))
-});
+})
 
 //render login on root
 app.get('/', (req, res) => {
@@ -58,11 +58,11 @@ app.post('/login', (req, res) => {
   api.getDetailsWZ(req.body.tag, req.body.platform).then(response => {
     console.log(req.body.tag, req.body.platform)
     if (!response) {
-      console.log('invalid user');
+      console.log('invalid user')
       res.render('login.ejs', { error: true })
     }
     else {
-      console.log('valid user');
+      console.log('valid user')
       res.redirect(`/chat?user=${req.body.tag}&platform=${req.body.platform}`)
     }
   })
@@ -188,7 +188,7 @@ function createTeams(users) {
   for (let i = 0; i < maxTeams; i++) {
     teams.push([])
   }
-  let teamNumber = 0;
+  let teamNumber = 0
   sortedArray.forEach((user) => {
     teams[teamNumber].push(user)
     if (teams[teamNumber].length === 4) {

@@ -62,12 +62,12 @@ socket.on('teamChange', data => {
 })
 
 //create own team
-teamForm.addEventListener("submit", (e) => {
+teamForm.addEventListener('submit', (e) => {
     e.preventDefault()
     socket.emit('addTeamMember', { id: socket.id })
     ownTeam.classList.toggle('joined')
 })
-removeMemberForm.addEventListener("submit", (e) => {
+removeMemberForm.addEventListener('submit', (e) => {
     e.preventDefault()
     socket.emit('removeTeamMember', { id: socket.id })
     ownTeam.classList.toggle('joined')
@@ -131,8 +131,8 @@ socket.on('message', function (message) {
     }
 
 
-    let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, "");
-    let element = null;
+    let strippedMesssage = message.message.replace(/(<([^>]+)>)/gi, '')
+    let element = null
 
     //when the user adds the meme command
     if (strippedMesssage.includes('!meme')) {
