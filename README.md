@@ -7,8 +7,8 @@
 4. [MOSCOW feature list](https://github.com/SamSlotemaker/warzone-teamfinder#clipboardmoscow-feature-list)
 5. [Data](https://github.com/SamSlotemaker/warzone-teamfinder#minidiscdata)
 6. [Real-time events](https://github.com/SamSlotemaker/warzone-teamfinder#real-time-events)
-7. [Data flowchart](https://github.com/SamSlotemaker/warzone-teamfinder#data-flowchart)
-
+7. [Data flowchart](https://github.com/SamSlotemaker/warzone-teamfinder#arrows_clockwise-data-flowchart)
+8. [NPM packages](https://github.com/SamSlotemaker/warzone-teamfinder#package-npm-packages)
 ---
 
 ## :book:Description
@@ -1676,7 +1676,7 @@ api.getDetailsWZ(username, platform)
 
 ---
 
-## Real-time events
+## :satellite:Real-time events
 I am making use of the following real-time events, created by socket.io: 
 
 ### :computer: Connection
