@@ -6,6 +6,8 @@
 3. [Concept](https://github.com/SamSlotemaker/warzone-teamfinder#pencilconcept)
 4. [MOSCOW feature list](https://github.com/SamSlotemaker/warzone-teamfinder#clipboardmoscow-feature-list)
 5. [Data](https://github.com/SamSlotemaker/warzone-teamfinder#minidiscdata)
+6. [Real-time events](https://github.com/SamSlotemaker/warzone-teamfinder#real-time-events)
+7. [Data flowchart](https://github.com/SamSlotemaker/warzone-teamfinder#data-flowchart)
 
 ---
 
@@ -1674,37 +1676,35 @@ api.getDetailsWZ(username, platform)
 
 ---
 
-#### Real-time events
+### Real-time events
 I am making use of the following real-time events, created by socket.io: 
 
-##### :computer: Connection
+#### :computer: Connection
 when the user makes a connection he has to be added to a team and the chatbot will notice other user that someone has joined the chat. 
 
-##### :computer: Disconnect
+#### :computer: Disconnect
 when the user disconnects, he has to be removed from the teams and the chatbot will send a message saying he left the chat. 
 
-##### :clipboard: AddTeamMember
+#### :clipboard: AddTeamMember
 adds the current user to the custom team.
 
-##### :clipboard: RemoveTeamMember
+#### :clipboard: RemoveTeamMember
 removes the current user from the custom team.
 
-##### :clipboard: teamChange
+#### :clipboard: teamChange
 Everytime a user connects/disconnects, new teams will be formed with all users, depending on thier KD ratio.
 
-##### :speech_balloon: Message
+#### :speech_balloon: Message
 handles the messages between server and clients.
 
-
-
-##### :speech_balloon: joinChat
+#### :speech_balloon: joinChat
 User joins the chat, online count needs to go up.
 
-##### :speech_balloon: leaveChat
+#### :speech_balloon: leaveChat
 User leaves the chat, online count needs to go down.
 
 ---
 
-#### Data flowchart
+### Data flowchart
 ![data-flowchart](https://user-images.githubusercontent.com/60625329/114560791-494bba00-9c6d-11eb-8665-4c08d99be57a.png)
 
