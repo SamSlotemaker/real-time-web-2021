@@ -7,6 +7,7 @@
 4. [MOSCOW feature list](https://github.com/SamSlotemaker/warzone-teamfinder#clipboardmoscow-feature-list)
 5. [Data](https://github.com/SamSlotemaker/warzone-teamfinder#minidiscdata)
 
+---
 
 ### :book:Description
 An application where you can find a Warzone team on your desired platform, when you are looking for that missing team member. Players will be added to a suggested team on joining the application, based on thier Kill/Death Ratio. Players can also join a custom team, while chatting with other online players. 
@@ -14,6 +15,9 @@ An application where you can find a Warzone team on your desired platform, when 
 #### Test account
 SamSuperman_12 | Playstation
 [LIVE LINK](https://warzone-teamfinder.herokuapp.com/)
+
+---
+
 ### :gear:Installation
 1. Clone this repo
 ```
@@ -36,6 +40,7 @@ npm start
 npm run dev
 ```
 
+---
 
 ### :pencil:Concept
 
@@ -64,6 +69,8 @@ I want to make an option which sends a 'card' with a detailed overview of a play
 #### Chat history 
 Users need to see old chats from when they weren't online, so they can still see other people who recently asked for a team. Preferably with a time stamp from when they were send
 
+---
+
 ### :clipboard:MOSCOW feature list
 Must have:
 * [X] Chatting
@@ -85,6 +92,8 @@ Could have:
 
 Would have:
 * [ ] Realtime create-a-class
+
+---
 
 ### :minidisc:Data
 I'm using a call of duty api from 
@@ -1663,6 +1672,8 @@ api.getDetailsWZ(username, platform)
   ```
 </details>
 
+---
+
 #### Real-time events
 I am making use of the following real-time events, created by socket.io: 
 
@@ -1692,12 +1703,8 @@ User joins the chat, online count needs to go up.
 ##### :speech_balloon: leaveChat
 User leaves the chat, online count needs to go down.
 
-
+---
 
 #### Data flowchart
 ![data-flowchart](https://user-images.githubusercontent.com/60625329/114560791-494bba00-9c6d-11eb-8665-4c08d99be57a.png)
 
-
-### Live link meme-chat
-Live link of the meme-chat, code is available under the meme-chat branch.
-https://meme-team-chat.herokuapp.com/
