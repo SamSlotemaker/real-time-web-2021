@@ -28,8 +28,10 @@ client.connect(async (err) => {
   console.log(err)
   messagesCollection = client.db("chat").collection("messages");
   teamsCollection = client.db("chat").collection("teams");
+  customTeamCollection = client.db("chat").collection("custom-team");
   usersCollection = client.db("chat").collection("users");
   await teamsCollection.deleteMany()
+  await customTeamCollection.deleteMany()
   await usersCollection.deleteMany()
   console.log('database connection succesful');
   http.listen(port, () => console.log(`listening on ${port}`))
@@ -45,7 +47,9 @@ app.get('/chat', async (req, res) => {
   if (!createdTeams) {
     createdTeams = { teams: [] }
   }
-  res.render('chat.ejs', { oldMessages, createdTeams })
+  const customTeam = await customTeamCollection.find().toArray()
+
+  res.render('chat.ejs', { oldMessages, createdTeams, customTeam })
 })
 
 //handle login form
@@ -69,7 +73,7 @@ app.post('/login', (req, res) => {
 //make io connection
 io.on('connection', (socket) => {
   socket.on('joinChat', user => {
-
+    console.log(socket.id)
     io.emit('message', { username: 'Chatbot', message: `${user.user} has joined the room` })
 
     // collect userdata to create teams
@@ -103,9 +107,17 @@ io.on('connection', (socket) => {
     })
   })
 
+  socket.on('addTeamMember', async (userObject) => {
+    let user = await usersCollection.findOne({ id: userObject.id })
+
+    await customTeamCollection.insertOne(user)
+    const users = await customTeamCollection.find().toArray()
+
+    io.emit('changeCustomTeam', users)
+  })
+
   //subscribe to message
   socket.on('message', (message) => {
-
     //get warzone stats from the logedin user
     api.getDetailsWZ(message.username, message.platform).then(async response => {
       const BR_PROPERTIES = response.lifetime.mode.br.properties
@@ -127,10 +139,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', async () => {
     const user = await usersCollection.findOne({ id: socket.id })
 
-
     if (user) {
       //delete users from team and online
       await usersCollection.deleteOne({ id: socket.id })
+      await customTeamCollection.deleteOne({ id: socket.id })
+
+      //emit new custom team without the removed member
+      const users = await customTeamCollection.find().toArray()
+      io.emit('changeCustomTeam', users)
 
       let allUsers = await usersCollection.find().toArray()
       let teams = createTeams(allUsers)
@@ -141,10 +157,14 @@ io.on('connection', (socket) => {
       await teamsCollection.insertOne({ teams: teams })
 
       const allTeams = await teamsCollection.findOne()
+
       io.emit('message', { username: 'Chatbot', message: `${user.username} has left.` })
 
       // const teamAverage = await getTeamAverage(team)
       io.emit('teamChange', allTeams)
+
+      io.emit('removeTeamMember')
+
 
       let onlineUsers = allUsers.length
       io.emit('leaveChat', onlineUsers)
@@ -155,6 +175,7 @@ io.on('connection', (socket) => {
 //returns teams of 4 players from given users
 function createTeams(users) {
   let sortedArray = sortArrayOnKd(users)
+  console.log(users)
   let maxTeams = Math.ceil(users.length / 4)
   let teams = []
   //create a team for the amount of teams possible

@@ -1,4 +1,6 @@
-const form = document.getElementById('chat-form')
+const chatForm = document.getElementById('chat-form')
+const teamForm = document.querySelector('.new-team-form')
+const customTeam = document.querySelector('.own-team .team')
 let messages = document.querySelector('.messages')
 let input = document.querySelector('#chat-form input')
 let memeButton = document.querySelector('.meme-button')
@@ -29,7 +31,7 @@ socket.on('leaveChat', res => {
 socket.on('teamChange', data => {
     console.log(data)
     console.log('team change')
-    suggestedTeams.innerHTML = '<h2>Suggestes teams</h2>'
+    suggestedTeams.innerHTML = '<h2>Suggested teams</h2>'
 
     data.teams.forEach((team, index) => {
         let teamListItems = ''
@@ -55,10 +57,27 @@ socket.on('teamChange', data => {
             </article>
         `)
     })
+})
 
+//create own team
+teamForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+    socket.emit('addTeamMember', { id: socket.id })
+})
 
-
-
+socket.on('changeCustomTeam', users => {
+    customTeam.innerHTML = ''
+    users.forEach(user => {
+        customTeam.insertAdjacentHTML('beforeend',
+            `   <li>
+                <strong>${user.username}</strong>
+                <ul class="stats">
+                    <li>Wins: ${user.wins}</li>
+                    <li>KD: ${user.kd}</li>
+                </ul>
+            </li>
+        `)
+    })
 })
 
 
@@ -68,7 +87,7 @@ let memes = [
     'meme2'
 ]
 
-form.addEventListener('submit', (e) => {
+chatForm.addEventListener('submit', (e) => {
     e.preventDefault()
     if (input.value) {
         const d = new Date()

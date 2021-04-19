@@ -74,7 +74,8 @@ Should have:
 * [X] Chat history
 * [X] Team finder on KD (or other stats)
 * [ ] Chat timestamps
-
+* [ ] Custom team
+ 
 
 Could have:
 * [ ] Chat commands

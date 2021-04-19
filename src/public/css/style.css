@@ -175,22 +175,22 @@ main .container {
 
 }
 
-.suggested-teams ul {
+:is(.suggested-teams, .own-team) ul {
     list-style-type: none;
 }
 
-.suggested-teams .average-kd {
+:is(.suggested-teams, .own-team) .average-kd {
     text-align: center;
 }
 
-.suggested-teams .team>li {
+:is(.suggested-teams, .own-team) .team>li {
     display: block;
     position: relative;
     counter-increment: inst;
     margin: 1em 0em
 }
 
-.suggested-teams .team>li:before {
+:is(.suggested-teams, .own-team) .team>li:before {
     content: counter(inst);
     background: #ff5e12;
     color: #fff;
@@ -205,7 +205,6 @@ main .container {
     width: 1.35em;
     position: absolute;
     z-index: -1;
-}
 }
 
 

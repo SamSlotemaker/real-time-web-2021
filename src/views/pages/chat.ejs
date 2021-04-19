@@ -20,30 +20,54 @@
     </header>
 
     <main class="chat-container">
-        <section class="suggested-teams">
-            <h2>Suggestes teams</h2>
-            <% if (createdTeams.teams.length > 0) { %>
-            <% createdTeams.teams.forEach((team, index) => { %>
-            <article>
-                <h3>team <%= index + 1 %></h3>
-                <strong class="average-kd"></strong>
-                <ul class="team">
-                    <% team.forEach(member => { %>
-                    <li>
-                        <strong><%= member.username %></strong>
-                        <ul class="stats">
-                            <li>Wins: <%= member.wins %></li>
-                            <li>KD: <%= member.kd %></li>
-                        </ul>
-                        <p><%= member.message %></p>
-                    </li>
-                    <% }) %>
-                </ul>
-            </article>
-            <% }) %>
-            <% } %>
-        </section>
+        <section class="teams">
+            <section class="suggested-teams">
+                <h2>Suggested teams</h2>
+                <% if (createdTeams.teams.length > 0) { %>
+                <% createdTeams.teams.forEach((team, index) => { %>
+                <article>
+                    <h3>team <%= index + 1 %></h3>
+                    <strong class="average-kd"></strong>
+                    <ul class="team">
+                        <% team.forEach(member => { %>
+                        <li>
+                            <strong><%= member.username %></strong>
+                            <ul class="stats">
+                                <li>Wins: <%= member.wins %></li>
+                                <li>KD: <%= member.kd %></li>
+                            </ul>
+                            <p><%= member.message %></p>
+                        </li>
+                        <% }) %>
+                    </ul>
+                </article>
+                <% }) %>
+                <% } %>
+            </section>
 
+            <section class="own-team">
+                <h2>Create your own team</h2>
+                <article>
+                    <h3>Custom team</h3>
+                    <ul class="team">
+                        <% customTeam.forEach(member => { %>
+                        <li>
+                            <strong><%= member.username %></strong>
+                            <ul class="stats">
+                                <li>Wins: <%= member.wins %></li>
+                                <li>KD: <%= member.kd %></li>
+                            </ul>
+                            <p><%= member.message %></p>
+                        </li>
+                        <% }) %>
+                    </ul>
+
+                    <form class="new-team-form" action="">
+                        <button>Join team</button>
+                    </form>
+                </article>
+            </section>
+        </section>
         <section class="chat">
             <h2>Chat</h2>
             <h3>Users online: <span id="online-count">0</span></h3>
