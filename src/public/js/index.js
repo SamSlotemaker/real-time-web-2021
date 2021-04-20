@@ -47,9 +47,10 @@ setTimeout(() => { setInterval(checkOnlineStatus, 500) }, 500)
 function checkOnlineStatus() {
     if (socket.connected) {
         document.body.classList.remove('offline')
-        location.reload()
+
     } else {
         document.body.classList.add('offline')
+        location.reload()
     }
 }
 
