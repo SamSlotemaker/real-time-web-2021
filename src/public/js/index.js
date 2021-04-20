@@ -24,6 +24,7 @@ let memes = [
     'meme2'
 ]
 
+//join chat when page loads
 socket.emit('joinChat', { user, platform })
 
 //real-time event handlers
@@ -38,6 +39,19 @@ teamForm.addEventListener('submit', submitAddMember)
 removeMemberForm.addEventListener('submit', submitRemoveMember)
 chatForm.addEventListener('submit', handleMessageSubmitForm)
 memeButton.addEventListener('click', handleMemeButton)
+
+
+setInterval(checkOnlineStatus, 3000)
+
+function checkOnlineStatus() {
+    if (socket.connected) {
+        console.log('socket is connected')
+        chatForm.classList.add('offline')
+    } else {
+        console.log('connected lost')
+        chatForm.classList.remove('offline')
+    }
+}
 
 
 //add message
@@ -173,14 +187,6 @@ function handleMemeButton() {
 
 //send chat message to server
 function handleMessageSubmitForm(e) {
-    console.log('connection is: ' + socket.connected)
-    if (!socket.connected) {
-        chatForm.classList.add('offline')
-    }
-    else {
-        chatForm.classList.remove('offline')
-    }
-
     e.preventDefault()
     if (input.value) {
         const d = new Date()

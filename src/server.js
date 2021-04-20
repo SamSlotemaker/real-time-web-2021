@@ -46,6 +46,7 @@ function handleSocketConnections(socket) {
   socket.on('message', handleMessage)
   socket.on('disconnect', handleDisconnect)
 
+
   //handles a user that joins the page/chat
   function joinChat(user) {
     let time = new Date()
