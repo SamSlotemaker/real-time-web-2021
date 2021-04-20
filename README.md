@@ -88,7 +88,8 @@ Users need to see old chats from when they weren't online, so they can still see
  
 
 #### Could have:
-* [ ] Chat commands
+* [X] Offline feedback
+* [X] Chat commands
 * [ ] Detailed stats
 
 
@@ -1702,6 +1703,9 @@ User joins the chat, online count needs to go up.
 
 ### :speech_balloon: leaveChat
 User leaves the chat, online count needs to go down.
+
+### :no_entry_sign: Offline
+The client polls every second if the socket is still available and disables input when it's not. Browser will refresh when the connection comes back to get the correct real-time events going again.
 
 ---
 
