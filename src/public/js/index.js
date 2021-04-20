@@ -43,11 +43,18 @@ memeButton.addEventListener('click', handleMemeButton)
 
 setInterval(checkOnlineStatus, 500)
 
+//add offline class when socket is not connected
+let lastOnlineStatus = true;
 function checkOnlineStatus() {
     if (socket.connected) {
         document.body.classList.remove('offline')
+
+        if (!lastOnlineStatus) {
+            socket.emit('joinChat', { user, platform })
+        }
     } else {
         document.body.classList.add('offline')
+        lastOnlineStatus = false;
     }
 }
 

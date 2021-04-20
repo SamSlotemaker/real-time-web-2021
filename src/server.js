@@ -119,6 +119,8 @@ function handleSocketConnections(socket) {
 
   //when a user sends a message it will be formatted here and send back to the clients
   function handleMessage(message) {
+    console.log('dit werkt nu MESSAGE')
+
     //get warzone stats from the logedin user
     api.getDetailsWZ(message.username, message.platform).then(async response => {
       const BR_PROPERTIES = response.lifetime.mode.br.properties
@@ -141,7 +143,9 @@ function handleSocketConnections(socket) {
 
   //when a user joins a custom team
   async function addTeamMember(userObject) {
+    console.log('dit werkt nu TEAM')
     let user = await usersCollection.findOne({ id: userObject.id })
+    console.log(user)
     await customTeamCollection.insertOne(user)
     const users = await customTeamCollection.find().toArray()
     io.emit('changeCustomTeam', users)
