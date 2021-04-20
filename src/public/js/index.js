@@ -173,6 +173,8 @@ function handleMemeButton() {
 
 //send chat message to server
 function handleMessageSubmitForm(e) {
+    console.log('connection is: ' + socket.connected)
+
     e.preventDefault()
     if (input.value) {
         const d = new Date()
