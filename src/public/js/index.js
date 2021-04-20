@@ -174,6 +174,12 @@ function handleMemeButton() {
 //send chat message to server
 function handleMessageSubmitForm(e) {
     console.log('connection is: ' + socket.connected)
+    if (!socket.connected) {
+        chatForm.classList.add('offline')
+    }
+    else {
+        chatForm.classList.remove('offline')
+    }
 
     e.preventDefault()
     if (input.value) {
