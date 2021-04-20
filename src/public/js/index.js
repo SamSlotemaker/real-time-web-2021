@@ -40,16 +40,17 @@ removeMemberForm.addEventListener('submit', submitRemoveMember)
 chatForm.addEventListener('submit', handleMessageSubmitForm)
 memeButton.addEventListener('click', handleMemeButton)
 
+setInterval(checkOnlineStatus, 500)
 
 //add offline class when socket is not connected
 function checkOnlineStatus() {
     if (socket.connected) {
         document.body.classList.remove('offline')
+        location.reload()
     } else {
         document.body.classList.add('offline')
     }
 }
-
 
 //add message
 function handleMessage(message) {
