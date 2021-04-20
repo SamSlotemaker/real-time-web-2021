@@ -52,8 +52,11 @@ function checkOnlineStatus() {
         if (!lastOnlineStatus) {
             socket.emit('joinChat', { user, platform })
         }
+
+        lastOnlineStatus = true;
     } else {
         document.body.classList.add('offline')
+        console.log('connection lost');
         lastOnlineStatus = false;
     }
 }
