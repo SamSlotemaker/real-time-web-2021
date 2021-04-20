@@ -46,10 +46,10 @@ setInterval(checkOnlineStatus, 3000)
 function checkOnlineStatus() {
     if (socket.connected) {
         console.log('socket is connected')
-        chatForm.classList.add('offline')
+        chatForm.classList.remove('offline')
     } else {
         console.log('connected lost')
-        chatForm.classList.remove('offline')
+        chatForm.classList.add('offline')
     }
 }
 
