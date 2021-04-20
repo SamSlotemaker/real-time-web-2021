@@ -40,7 +40,8 @@ removeMemberForm.addEventListener('submit', submitRemoveMember)
 chatForm.addEventListener('submit', handleMessageSubmitForm)
 memeButton.addEventListener('click', handleMemeButton)
 
-setInterval(checkOnlineStatus, 500)
+//start checking the connnection after .5 second
+setTimeout(() => { setInterval(checkOnlineStatus, 500) }, 500)
 
 //add offline class when socket is not connected
 function checkOnlineStatus() {
