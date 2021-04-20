@@ -12,6 +12,31 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* 404 */
+.error {
+    padding: 3em;
+    background-color: #171717;
+    color: white;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+
+}
+
+.error h1 {
+    font-size: 10vw;
+    text-align: center;
+    color: var(--color1);
+}
+
+.error a {
+    display: block;
+    margin: auto;
+    width: 10em;
+    text-align: center;
+    color: #ff5e12;
+}
+
 header h1 {
     margin-bottom: 0.5rem;
 }

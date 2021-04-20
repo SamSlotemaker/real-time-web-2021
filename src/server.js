@@ -35,6 +35,10 @@ app.post('/login', login)
 //render chat page
 app.get('/chat', chat)
 
+app.get('*', (req, res) => {
+  res.render('error')
+})
+
 //make io connection
 io.on('connection', handleSocketConnections)
 
