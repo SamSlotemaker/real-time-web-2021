@@ -41,15 +41,13 @@ chatForm.addEventListener('submit', handleMessageSubmitForm)
 memeButton.addEventListener('click', handleMemeButton)
 
 
-setInterval(checkOnlineStatus, 3000)
+setInterval(checkOnlineStatus, 500)
 
 function checkOnlineStatus() {
     if (socket.connected) {
-        console.log('socket is connected')
-        chatForm.classList.remove('offline')
+        document.body.classList.remove('offline')
     } else {
-        console.log('connected lost')
-        chatForm.classList.add('offline')
+        document.body.classList.add('offline')
     }
 }
 

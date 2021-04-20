@@ -20,6 +20,21 @@ header img {
     max-width: 150px;
 }
 
+header .offline-message {
+    left: -100%;
+    top: 1em;
+    background: #ff5e12;
+    padding: 2em;
+    position: absolute;
+    color: white;
+    border-radius: 1em;
+    transition: 1s ease-in-out;
+}
+
+.offline header .offline-message {
+    left: 1em;
+}
+
 /* LOGIN PAGE */
 .login {
     background-color: #171717;
@@ -452,6 +467,16 @@ main .container {
     background-color: #313131;
     margin-right: 1em;
     border-radius: 0px;
+}
+
+.offline #chat-form {
+    pointer-events: none;
+    opacity: .3;
+}
+
+.offline .new-team-form {
+    pointer-events: none;
+    opacity: .3;
 }
 
 h2 {
