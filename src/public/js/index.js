@@ -41,7 +41,11 @@ chatForm.addEventListener('submit', handleMessageSubmitForm)
 memeButton.addEventListener('click', handleMemeButton)
 
 
-setInterval(checkOnlineStatus, 500)
+setTimeout(function () {
+    setInterval(checkOnlineStatus, 500)
+}, 1000)
+
+
 
 //add offline class when socket is not connected
 let lastOnlineStatus = true;
