@@ -169,7 +169,6 @@ function handleCustomTeamChange(users) {
     })
 }
 
-
 // submit handlers
 // send users to server that needs to be removed
 function submitRemoveMember(e) {
