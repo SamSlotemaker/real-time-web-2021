@@ -46,7 +46,21 @@ npm run dev
 
 ## :pencil:Concept
 
-### Login
+### First three ideas
+sketches can be found [here](https://github.com/SamSlotemaker/warzone-teamfinder/wiki/Concept-sketches)
+
+#### Warzone loadout creator
+An online application where you can setup your loadouts live with your friends and speculate which attachments should go on the gun and why.
+
+#### Live buff/nerf voting
+Vote love on certain updates or gamefeatures that need to be revisied by the developers.
+
+#### Warzone team finder (FINAL CHOICE)
+An application where you can find a team when you are looking for that missing link.
+
+### Features
+
+#### Login
 Users need to login with thier call of duty info
 * Username
 * Platform
@@ -61,14 +75,14 @@ KD: 1.01 Wins: 10 Platform: Playstation
 Hey i'm user123
 ```
 
-### Chatting
+#### Chatting
 Users can chat with other users, when they are looking for a team. I want to make a few standard options users can send, like: 
 _'Looking for +2, minimal KD: 1.5, minimal wins: 50'_
 
-### Show detailed stats
+#### Show detailed stats
 I want to make an option which sends a 'card' with a detailed overview of a player stats, with a button or with a '!stats' command, so users can show other players how good they are. It could be an idea to do something similar with recent matches. 
 
-### Chat history 
+#### Chat history 
 Users need to see old chats from when they weren't online, so they can still see other people who recently asked for a team. Preferably with a time stamp from when they were send
 
 ---
